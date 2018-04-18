@@ -55,11 +55,14 @@ namespace WebApplication2.Controllers
 
                 var ledger = new Ledger
                 {
-                    Coins = currencyDataList
+                    Coins = currencyDataList,
+                    Time = DateTime.Now
                 };
 
                 db.Ledgers.Add(ledger);
                 db.SaveChanges();
+
+                Console.WriteLine();
                 return View(currencyDataList);
             }
 
