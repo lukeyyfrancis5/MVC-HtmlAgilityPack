@@ -45,25 +45,22 @@ namespace WebApplication2.Controllers
                 {
                     // Console.WriteLine("Attempting to process row: " + rowNumber++);
 
-                    try
-                    {
-                        var CoinSymbol = row.ChildNodes[3].ChildNodes[3].InnerText;
-                        var CoinName = row.ChildNodes[3].ChildNodes[5].InnerText;
-                        var CoinPrice = row.ChildNodes[7].InnerText;
+                    var CoinSymbol = row.ChildNodes[3].ChildNodes[3].InnerText;
+                    var CoinName = row.ChildNodes[3].ChildNodes[5].InnerText;
+                    var CoinPrice = row.ChildNodes[7].InnerText;
 
-                        Coin coin = new Coin(CoinSymbol, CoinName, CoinPrice);
-                        currencyDataList.Add(coin);
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine("Failed to Find Value at Specified Co-ordinates");
-                        Console.WriteLine(e);
-                        throw;
-                    }
+                    Coin coin = new Coin(CoinSymbol, CoinName, CoinPrice);
+                    currencyDataList.Add(coin);
                 }
-                return View(currencyDataList);
 
-                Console.WriteLine("Process done");
+                var ledger = new Ledger
+                {
+                    Coins = currencyDataList
+                };
+
+                db.Ledgers.Add(ledger);
+                db.SaveChanges();
+                return View(currencyDataList);
             }
 
             return HttpNotFound();
