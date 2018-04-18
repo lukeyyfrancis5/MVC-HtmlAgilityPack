@@ -15,9 +15,9 @@ namespace WebApplication2.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult ViewSnaps()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "See your snaps here !";
 
             return View();
         }
