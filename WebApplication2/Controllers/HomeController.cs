@@ -24,7 +24,7 @@ namespace WebApplication2.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Your table page!";
 
             using (var db = new LedgerContext())
             {
@@ -60,13 +60,12 @@ namespace WebApplication2.Controllers
                         throw;
                     }
                 }
+                return View(currencyDataList);
 
                 Console.WriteLine("Process done");
             }
 
-
-
-            return View();
+            return HttpNotFound();
         }
     }
 }
