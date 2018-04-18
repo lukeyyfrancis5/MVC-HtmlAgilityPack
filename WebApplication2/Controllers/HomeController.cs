@@ -22,9 +22,10 @@ namespace WebApplication2.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult ScrapeActionName()
         {
             ViewBag.Message = "Your table page!";
+            ViewBag.Time = DateTime.Now;
 
             using (var db = new LedgerContext())
             {
