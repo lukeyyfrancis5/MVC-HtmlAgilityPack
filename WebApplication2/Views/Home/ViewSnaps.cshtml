@@ -1,7 +1,21 @@
 ﻿@{
     ViewBag.Title = "ViewSnaps";
 }
+@using WebApplication2.Models
+@model IOrderedQueryable<WebApplication2.Models.Ledger>
+
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
 <p>Use this area to provide additional information.</p>
+
+@{
+        var types = (from m in @Model
+            select m);
+        var ids = new List<int>();
+        foreach (var type in types)
+        {
+            <dt>type.Time</dt>
+            <dd>type.LedgerId</dd>
+        }
+}

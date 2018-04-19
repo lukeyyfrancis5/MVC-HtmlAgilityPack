@@ -18,8 +18,25 @@ namespace WebApplication2.Controllers
         public ActionResult ViewSnaps()
         {
             ViewBag.Message = "See your snaps here !";
+            using (var db = new LedgerContext())
+            {
+                var query = from b in db.Ledgers
+                    orderby b.Time
+                    select b;
 
-            return View();
+                var hmm = query.ToString();
+                Console.WriteLine();
+                //var Snapshots = new List<int>();
+                //foreach (var snapshot in Snapshots)
+                //{
+                //    var id = snapshot.id;
+                //    var time = snapshot.time;
+                //}
+        
+                return View(query);
+            }
+
+            
         }
 
         public ActionResult ScrapeActionName()
@@ -52,7 +69,7 @@ namespace WebApplication2.Controllers
                     Coin coin = new Coin(CoinSymbol, CoinName, CoinPrice);
                     currencyDataList.Add(coin);
                 }
-
+                // Creates a date.time snapshot
                 var ledger = new Ledger
                 {
                     Coins = currencyDataList,
