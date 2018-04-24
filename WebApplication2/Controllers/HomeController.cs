@@ -1,6 +1,7 @@
 ﻿using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -20,23 +21,19 @@ namespace WebApplication2.Controllers
             ViewBag.Message = "See your snaps here !";
             using (var db = new LedgerContext())
             {
-                var query = from b in db.Ledgers
-                    orderby b.Time
-                    select b;
+                List<DateTime> times = new List<DateTime>();
+                List<int> Ids = new List<int>();
 
-                var hmm = query.ToString();
-                Console.WriteLine();
-                //var Snapshots = new List<int>();
-                //foreach (var snapshot in Snapshots)
-                //{
-                //    var id = snapshot.id;
-                //    var time = snapshot.time;
-                //}
-        
-                return View(query);
+                foreach (var dbLedger in db.Ledgers)
+                {
+                    times.Add(dbLedger.Time);
+                    Ids.Add(dbLedger.LedgerId);
+                }
+
+                Console.WriteLine(times);
+                
+                return View(times);
             }
-
-            
         }
 
         public ActionResult ScrapeActionName()
