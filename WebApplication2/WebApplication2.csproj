@@ -197,6 +197,7 @@
     <Content Include="Views\Home\ViewSnaps.cshtml" />
     <Content Include="Views\Home\ScrapeActionName.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\ViewSnap.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

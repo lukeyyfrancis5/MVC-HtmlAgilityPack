@@ -1,0 +1,25 @@
+﻿@model IQueryable<WebApplication2.Models.Coin>
+
+@{
+    ViewBag.Title = "ViewSnap";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <td>Symbol</td>
+            <td>Name</td>
+            <td>Price</td>
+        </tr>
+        @foreach (var coin in Model)
+        {
+            <tr>
+                <td>@coin.Symbol</td>
+                <td>@coin.Name</td>
+                <td>@coin.Price</td>
+            </tr>
+        }
+
+    </thead>
+</table>

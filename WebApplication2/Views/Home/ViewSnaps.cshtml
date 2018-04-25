@@ -10,15 +10,10 @@
 <p>Use this area to provide additional information.</p>
 
 @{
-        @*foreach (var ledger in @Model)
-        {
-            <dt>ledger.Time</dt>
-            <dd>ledger.LedgerId</dd>
-        }*@
-    for (var index = 0; index < @Model.Count; index++)
+    for (var index = 1; index < @Model.Count + 1; index++)
     {
-        DateTime dateTime = @Model[index];
-        <dt>Snapshot # @index</dt>
-        <dd>@Model[index].ToString()</dd>
+        DateTime dateTime = @Model[index-1];
+        <dt><a href="/home/viewsnap/@index">Snapshot #@index</a></dt>
+        <dd>@Model[index-1].ToString()</dd>
     }
 }

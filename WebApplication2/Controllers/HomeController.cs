@@ -16,18 +16,29 @@ namespace WebApplication2.Controllers
             return View();
         }
 
+        public ActionResult ViewSnap(int id)
+        {
+            using (var db = new LedgerContext())
+            {
+                var ledger = db.Ledgers.FirstOrDefault(l => l.LedgerId == id);
+
+                if (ledger != null)
+                    return View(db.Coins.Where(c => c.LedgerID == id));
+
+                return HttpNotFound();
+            } 
+        }
+
         public ActionResult ViewSnaps()
         {
             ViewBag.Message = "See your snaps here !";
             using (var db = new LedgerContext())
             {
                 List<DateTime> times = new List<DateTime>();
-                List<int> Ids = new List<int>();
 
                 foreach (var dbLedger in db.Ledgers)
                 {
                     times.Add(dbLedger.Time);
-                    Ids.Add(dbLedger.LedgerId);
                 }
 
                 Console.WriteLine(times);
