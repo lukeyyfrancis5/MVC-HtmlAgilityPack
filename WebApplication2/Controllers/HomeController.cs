@@ -1,7 +1,9 @@
 ﻿using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using WebApplication2.Models;
 
@@ -10,7 +12,6 @@ namespace WebApplication2.Controllers
 {
     public class HomeController : Controller
     {
-
         public ActionResult Index()
         {
             return View();
@@ -18,21 +19,21 @@ namespace WebApplication2.Controllers
 
         public ActionResult ViewSnap(int id)
         {
-            using (var db = new LedgerContext())
+            using (var db = new LedgerDBContext())
             {
                 var ledger = db.Ledgers.FirstOrDefault(l => l.LedgerId == id);
 
-                if (ledger != null)
-                    return View(db.Coins.Where(c => c.LedgerID == id));
-
-                return HttpNotFound();
-            } 
+                if (ledger == null)
+                    return HttpNotFound();
+                Console.WriteLine(ledger);
+                return View(ledger);
+            }
         }
 
         public ActionResult ViewSnaps()
         {
             ViewBag.Message = "See your snaps here !";
-            using (var db = new LedgerContext())
+            using (var db = new LedgerDBContext())
             {
                 List<DateTime> times = new List<DateTime>();
 
@@ -42,20 +43,21 @@ namespace WebApplication2.Controllers
                 }
 
                 Console.WriteLine(times);
-                
+
                 return View(times);
             }
         }
 
-        public ActionResult ScrapeActionName()
+        public ActionResult CryptoData()
         {
             ViewBag.Message = "Your table page!";
+
             ViewBag.Time = DateTime.Now;
 
-            using (var db = new LedgerContext())
+            using (var db = new LedgerDBContext())
             {
                                        
-                var url = "https://coinmarketcap.com/";
+                var url = "https://coinmarketcap.com/";     
 
                 var htmlWeb = new HtmlWeb();
 

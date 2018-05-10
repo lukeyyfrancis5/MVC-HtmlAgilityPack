@@ -2,18 +2,18 @@
     ViewBag.Title = "ViewSnaps";
 }
 @using WebApplication2.Models
-@model List<DateTime>
+@model List<DateTime>       
 
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
-<p>SnapShotDisply</p>
+<p>SnapShotDisplay</p>
 
 @{
     for (var index = 1; index < @Model.Count + 1; index++)
     {
-        DateTime dateTime = @Model[index-1];
+        DateTime dateTime = @Model[index-1];    
         <dt><a href="/home/viewsnap/@index">Snapshot #@index</a></dt>
         <dd>@Model[index-1].ToString()</dd>
     }
-}
+} 
