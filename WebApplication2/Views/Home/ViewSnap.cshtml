@@ -1,4 +1,5 @@
-﻿@model IQueryable<WebApplication2.Models.Coin>
+﻿@using WebApplication2.Models
+@model IEnumerable<WebApplication2.Models.Ledger>
 
 @{
     ViewBag.Title = "ViewSnap";
@@ -12,13 +13,13 @@
             <td>Name</td>
             <td>Price</td>
         </tr>
-        @foreach (var coin in Model)
+        @foreach (var item in Model)
         {
             <tr>
-                <td>@coin.Symbol</td>
-                <td>@coin.Name</td>
-                <td>@coin.Price</td>
+                <td></td>
+                <td></td>
             </tr>
+
         }
 
     </thead>

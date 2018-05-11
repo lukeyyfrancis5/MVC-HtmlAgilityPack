@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace WebApplication2.Models
@@ -7,6 +8,9 @@ namespace WebApplication2.Models
     {
         public int LedgerId { get; set; }
         public DateTime Time  { get; set; }
-        public List<Coin> Coins { get; set; }
+        public List<Coin> CryptoCoins { get; set; }
+
+
+        
     }
 }

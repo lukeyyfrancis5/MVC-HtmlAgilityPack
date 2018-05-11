@@ -1,8 +1,10 @@
 ﻿using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Common.CommandTrees;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using WebApplication2.Models;
 
 
@@ -16,23 +18,21 @@ namespace WebApplication2.Controllers
             return View();
         }
 
-        public ActionResult ViewSnap(int id)
+        public ViewResult ViewSnap(int id)
         {
-            using (var db = new LedgerContext())
-            {
-                var ledger = db.Ledgers.FirstOrDefault(l => l.LedgerId == id);
-
-                if (ledger != null)
-                    return View(db.Coins.Where(c => c.LedgerID == id));
-
-                return HttpNotFound();
-            } 
+            LedgerDBContext db = new LedgerDBContext();
+            
+               /* Ledger fullTable = new Ledger();
+                fullTable.CryptoCoins = (from Coin in db.CryptoCoins
+                                   Join) */
+            
+            return View();
         }
 
         public ActionResult ViewSnaps()
         {
             ViewBag.Message = "See your snaps here !";
-            using (var db = new LedgerContext())
+            using (var db = new LedgerDBContext())
             {
                 List<DateTime> times = new List<DateTime>();
 
@@ -47,12 +47,12 @@ namespace WebApplication2.Controllers
             }
         }
 
-        public ActionResult ScrapeActionName()
+        public ActionResult CryptoData()
         {
             ViewBag.Message = "Your table page!";
             ViewBag.Time = DateTime.Now;
 
-            using (var db = new LedgerContext())
+            using (var db = new LedgerDBContext())
             {
                                        
                 var url = "https://coinmarketcap.com/";
@@ -80,7 +80,7 @@ namespace WebApplication2.Controllers
                 // Creates a date.time snapshot
                 var ledger = new Ledger
                 {
-                    Coins = currencyDataList,
+                    CryptoCoins = currencyDataList,
                     Time = DateTime.Now
                 };
 
