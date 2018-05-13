@@ -12,9 +12,9 @@ namespace WebApplication2.Models
         public string Symbol { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
+        public DateTime Time { get; set; }
+        
 
-        public int LedgerID { get; set; }
-        public virtual Ledger Ledger { get; set; }
 
         public Coin(string symbol, string name, string price)
         {

@@ -1,26 +1,8 @@
-﻿@using WebApplication2.Models
-@model IEnumerable<WebApplication2.Models.Ledger>
+﻿@model dynamic
 
 @{
     ViewBag.Title = "ViewSnap";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "_Layout";
 }
 
-<table class="table table-bordered table-hover">
-    <thead>
-        <tr>
-            <td>Symbol</td>
-            <td>Name</td>
-            <td>Price</td>
-        </tr>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td></td>
-                <td></td>
-            </tr>
-
-        }
-
-    </thead>
-</table>
+<h2>title</h2>
