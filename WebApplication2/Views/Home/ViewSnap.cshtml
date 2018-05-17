@@ -1,8 +1,18 @@
-﻿@model dynamic
+﻿@model WebApplication2.Models.Ledger
 
 @{
-    ViewBag.Title = "ViewSnap";
-    Layout = "_Layout";
+    ViewBag.Title = "ViewSnaps";
+   
 }
 
-<h2>title</h2>
+<h2>Snap Table</h2>
+
+<div>
+    <table>
+    
+        <dt>SnapTime</dt>
+        <dd>@Model.Time</dd>    
+        <dt>@Model.CryptoCoins</dt>
+   
+    </table>
+</div>

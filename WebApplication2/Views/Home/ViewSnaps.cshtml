@@ -1,19 +1,30 @@
 ﻿@{
-    ViewBag.Title = "ViewSnaps";
+    ViewBag.Title = "ViewSnaps";    
 }
 @using WebApplication2.Models
-@model List<DateTime>
+@model List<WebApplication2.Models.Ledger>
 
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
-<p>SnapShotDisply</p>
+<p>SnapShotDisplay</p>
 
 @{
+    foreach (var ledger in Model)
+    {
+        <tr>
+            <td> @ledger.Time</td>
+            <td>@ledger.LedgerId</td>
+            <td> <a href="/home/viewsnap/@ledger.LedgerId">See Your Snap !</a></td>
+        </tr>
+    }
+}
+
+@*@{
     for (var index = 1; index < @Model.Count + 1; index++)
     {
         DateTime dateTime = @Model[index-1];
         <dt><a href="/home/viewsnap/@index">Snapshot #@index</a></dt>
         <dd>@Model[index-1].ToString()</dd>
     }
-}
+}*@

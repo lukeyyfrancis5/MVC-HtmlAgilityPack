@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using WebApplication2.Models;
+using System.Data.Entity;
 
 
 namespace WebApplication2.Controllers
@@ -18,41 +19,25 @@ namespace WebApplication2.Controllers
         {
             return View();
         }
-
-        public ViewResult ViewSnap(int id)
+        
+        //Need to properly dispose LedgerDBContext object
+        public ActionResult ViewSnap(int id)
         {
-           LedgerDBContext db = new LedgerDBContext();
-            
-            //   Ledger fullTable = new Ledger();
-            //fullTable.CryptoCoins = (from Coin in db.Coins
-            //    join Ledger in db.Ledgers
-            //        on Coin.LedgerID equals Ledger.LedgerId
-            //    where Coin.ID == Ledger.LedgerId
-            //    select new Ledger()
-            //    {
-            //        CryptoCoins = Ledger.CryptoCoins,
-            //        Time = Ledger.Time
-            //    }).ToList();
-            
-            return View();
+            using (var db = new LedgerDBContext())
+            {
+                var shot = db.Ledgers.Include(l => l.CryptoCoins).FirstOrDefault(x => x.LedgerId == id);
+                return View(shot);
+            }
         }
 
         public ActionResult ViewSnaps()
         {
             ViewBag.Message = "See your snaps here !";
+
             using (var db = new LedgerDBContext())
             {
-                List<DateTime> times = new List<DateTime>();
-
-                foreach (var dbCoin in db.Coins)
-                {
-                    times.Add(dbCoin.Time);
-                }
-
-                Console.WriteLine(times);
-                
-                return View(times);
-            }
+                return View(db.Ledgers.ToList());
+            }           
         }
 
         public ActionResult CryptoData()
@@ -75,7 +60,7 @@ namespace WebApplication2.Controllers
                 HtmlNodeCollection allRows = htmlDocument.DocumentNode.SelectNodes("//table[1]/tbody[1]/tr[*]");
                 //var rowNumber = 0;
                 List<Coin> currencyDataList = new List<Coin>();
-
+                DateTime time = DateTime.Now;
                 foreach (var row in allRows)
                 {
                     // Console.WriteLine("Attempting to process row: " + rowNumber++);
@@ -87,19 +72,17 @@ namespace WebApplication2.Controllers
                     Coin coin = new Coin(CoinSymbol, CoinName, CoinPrice);
                     currencyDataList.Add(coin);
                 }
-
-                db.SaveChanges();
+              
                
-                /* Creates a date.time snapshot- this will be my future snapshot button
+                // Creates a date.time snapshot- this will be my future snapshot button
                 var ledger = new Ledger
                 {
                     CryptoCoins = currencyDataList,
-                    Time = DateTime.Now
-                }; 
+                    Time = time
+                };
 
                 db.Ledgers.Add(ledger);
                 db.SaveChanges();
-                */
 
                 Console.WriteLine();
                 return View(currencyDataList);
